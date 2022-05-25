@@ -2,10 +2,10 @@ package com.backend.proyectoweb.proyectoweb_backend.service;
 
 import java.util.Optional;
 
-import com.backend.proyectoweb.proyectoweb_backend.model.Producto;
-import com.backend.proyectoweb.proyectoweb_backend.model.OrdenCompra;
-import com.backend.proyectoweb.proyectoweb_backend.model.CarritoCompra;
-import com.backend.proyectoweb.proyectoweb_backend.model.UsuarioSys;
+import com.backend.proyectoweb.proyectoweb_backend.model.Product;
+import com.backend.proyectoweb.proyectoweb_backend.model.PurchaseOrder;
+import com.backend.proyectoweb.proyectoweb_backend.model.ShoppingCart;
+import com.backend.proyectoweb.proyectoweb_backend.model.UserSys;
 import com.backend.proyectoweb.proyectoweb_backend.repository.OrdenCompraRepository;
 import com.backend.proyectoweb.proyectoweb_backend.repository.UsusarioRepository;
 import com.backend.proyectoweb.proyectoweb_backend.util.PurchaseOrderNotFoundException;
@@ -16,7 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OrdenCompraService implements IOrdenCompraService {
+public class PurchaseOrderService implements IPurchaseOrderService {
 
     @Autowired
     private OrdenCompraRepository repository;
@@ -27,7 +27,7 @@ public class OrdenCompraService implements IOrdenCompraService {
     @Override
     public void deletePurchaseOrder(Long id) {
 
-        Optional<OrdenCompra> user = repository.findById(id);
+        Optional<PurchaseOrder> user = repository.findById(id);
         
         if(user.isPresent()){
             repository.delete(user.get());
@@ -38,7 +38,7 @@ public class OrdenCompraService implements IOrdenCompraService {
     }
 
     @Override
-    public OrdenCompra updateOrder(OrdenCompra order, Long id) {
+    public PurchaseOrder updateOrder(PurchaseOrder order, Long id) {
         
         return repository.findById(id).map(provider ->{
 
@@ -51,16 +51,16 @@ public class OrdenCompraService implements IOrdenCompraService {
     }
 
     @Override
-    public OrdenCompra getOrderById(Long id) {
+    public PurchaseOrder getOrderById(Long id) {
 
         return repository.findById(id).orElseThrow(()-> new PurchaseOrderNotFoundException(id));
 
     }
 
     @Override
-    public OrdenCompra createOrder(OrdenCompra order, Long id) {
+    public PurchaseOrder createOrder(PurchaseOrder order, Long id) {
 
-        OrdenCompra order2 = new OrdenCompra();
+        PurchaseOrder order2 = new PurchaseOrder();
         order2.setPurchaseDate(order.getPurchaseDate());
         order2.setCustomer(uRepository.getById(id));
         order2.setCart(order.getCart());
@@ -70,18 +70,18 @@ public class OrdenCompraService implements IOrdenCompraService {
     }
 
     @Override
-    public Page<OrdenCompra> getOrders(Pageable pageable) {
+    public Page<PurchaseOrder> getOrders(Pageable pageable) {
         
         return repository.findAll(pageable);
     
     }
     
 
-    public Double calcFinalPrice(CarritoCompra carritoCompra){
+    public Double calcFinalPrice(ShoppingCart carritoCompra){
         
         Double finalprice = 0d;
 
-        for(Producto p: carritoCompra.getProducts()){
+        for(Product p: carritoCompra.getProducts()){
             finalprice+=p.getPrice();
         }
 
@@ -90,9 +90,9 @@ public class OrdenCompraService implements IOrdenCompraService {
     }
 
     @Override
-    public Page<OrdenCompra> getOrdersPerUser(Long id, Pageable pageable) {
+    public Page<PurchaseOrder> getOrdersPerUser(Long id, Pageable pageable) {
 
-        UsuarioSys user = uRepository.getById(id);
+        UserSys user = uRepository.getById(id);
         return repository.findByCustomer(user, pageable);
     }
 }

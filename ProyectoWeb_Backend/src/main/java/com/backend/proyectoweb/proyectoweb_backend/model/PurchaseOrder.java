@@ -14,41 +14,41 @@ import javax.persistence.TemporalType;
 
 
 @Entity
-public class OrdenCompra {
+public class PurchaseOrder {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
 
     @ManyToOne
-    protected UsuarioSys customer;
+    protected UserSys customer;
 
     @Column
     protected Double finalPrice;
 
     @OneToOne
-    protected CarritoCompra cart;
+    protected ShoppingCart cart;
 
     @Column
     @Temporal(TemporalType.DATE)
     protected Date purchaseDate;
 
 
-    public OrdenCompra() {
+    public PurchaseOrder() {
     }
 
-    public OrdenCompra(UsuarioSys customer, Double finalPrice, CarritoCompra cart, Date purchaseDate) {
+    public PurchaseOrder(UserSys customer, Double finalPrice, ShoppingCart cart, Date purchaseDate) {
         this.customer = customer;
         this.finalPrice = finalPrice;
         this.cart = cart;
         this.purchaseDate = purchaseDate;
     }
 
-    public UsuarioSys getCustomer() {
+    public UserSys getCustomer() {
         return customer;
     }
 
-    public void setCustomer(UsuarioSys customer) {
+    public void setCustomer(UserSys customer) {
         this.customer = customer;
     }
 
@@ -60,11 +60,11 @@ public class OrdenCompra {
         this.finalPrice = finalPrice;
     }
 
-    public CarritoCompra getCart() {
+    public ShoppingCart getCart() {
         return cart;
     }
 
-    public void setCart(CarritoCompra cart) {
+    public void setCart(ShoppingCart cart) {
         this.cart = cart;
     }
 

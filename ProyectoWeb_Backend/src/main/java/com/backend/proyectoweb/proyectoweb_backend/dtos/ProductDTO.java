@@ -1,39 +1,34 @@
-package com.backend.proyectoweb.proyectoweb_backend.model;
+package com.backend.proyectoweb.proyectoweb_backend.dtos;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+public class ProductDTO {
 
-
-@Entity
-public class Producto {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
 
-    @Column
     protected String name;
-
-    @Column
+    
     protected String description;
 
-    @Column
     protected Double price;
 
-    @Column
     protected String image;
 
-    public Producto() {
+    public ProductDTO() {
     }
 
-    public Producto(String name, String description, Double price, String image) {
+    public ProductDTO(Long id, String name, String description, Double price, String image) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.image = image;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -68,13 +63,5 @@ public class Producto {
         this.image = image;
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    
 }

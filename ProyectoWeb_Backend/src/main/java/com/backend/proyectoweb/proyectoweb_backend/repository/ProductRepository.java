@@ -3,21 +3,21 @@ package com.backend.proyectoweb.proyectoweb_backend.repository;
 import java.util.List;
 import java.util.Optional;
 
-import com.backend.proyectoweb.proyectoweb_backend.model.Producto;
+import com.backend.proyectoweb.proyectoweb_backend.model.Product;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProductoRepository extends JpaRepository<Producto, Long> {
+public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    Optional<Producto> findById(Long id);
+    Optional<Product> findById(Long id);
 
-    List<Producto> findByName(String name);
+    List<Product> findByName(String name);
 
     @Query(value = "SELECT p FROM Producto p WHERE p.price = ?1")
-    List<Producto> consulta1(Double price);
+    List<Product> consulta1(Double price);
     
     
     

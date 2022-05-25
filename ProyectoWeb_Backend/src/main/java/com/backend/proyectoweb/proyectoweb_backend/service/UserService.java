@@ -4,8 +4,8 @@ package com.backend.proyectoweb.proyectoweb_backend.service;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import com.backend.proyectoweb.proyectoweb_backend.model.UsuarioSys;
-import com.backend.proyectoweb.proyectoweb_backend.repository.RolesRepository;
+import com.backend.proyectoweb.proyectoweb_backend.model.UserSys;
+import com.backend.proyectoweb.proyectoweb_backend.repository.RoleRepository;
 import com.backend.proyectoweb.proyectoweb_backend.repository.UsusarioRepository;
 import com.backend.proyectoweb.proyectoweb_backend.util.UserNotFoundException;
 
@@ -16,10 +16,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UsuarioService implements IUsuarioService {
+public class UserService implements IUserService {
 
     @Autowired
-    private RolesRepository rolesRepository;
+    private RoleRepository rolesRepository;
 
     @Autowired
     private UsusarioRepository repository;
@@ -30,7 +30,7 @@ public class UsuarioService implements IUsuarioService {
     @Override
     public void deleteUser(Long id) {
 
-        Optional<UsuarioSys> user = repository.findById(id);
+        Optional<UserSys> user = repository.findById(id);
 
         if(user.isPresent()){
             repository.delete(user.get());
@@ -41,14 +41,14 @@ public class UsuarioService implements IUsuarioService {
     }
 
     @Override
-    public UsuarioSys getUserById(Long id) {
+    public UserSys getUserById(Long id) {
 
         return repository.findById(id).orElseThrow(()-> new UserNotFoundException(id));
     
     }
 
     @Override
-    public UsuarioSys createUser(UsuarioSys user) {
+    public UserSys createUser(UserSys user) {
         
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRol(rolesRepository.getById(2l));
@@ -59,7 +59,7 @@ public class UsuarioService implements IUsuarioService {
     }
     
     @Override
-    public UsuarioSys updateUser(UsuarioSys user, Long id) {
+    public UserSys updateUser(UserSys user, Long id) {
 
         return repository.findById(id).map(provider ->{
             provider.setFirstName(user.getFirstName());
@@ -76,14 +76,14 @@ public class UsuarioService implements IUsuarioService {
     }
 
     @Override
-    public Page<UsuarioSys> getUsers(Pageable pageable) {
+    public Page<UserSys> getUsers(Pageable pageable) {
 
         return repository.findAll(pageable);
 
     }
 
     @Override
-    public UsuarioSys getUserInfo(String email) {
+    public UserSys getUserInfo(String email) {
         return repository.findByEmail(email).orElseThrow(()-> new UserNotFoundException(email));
     }
         

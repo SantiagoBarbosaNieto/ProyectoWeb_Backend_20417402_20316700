@@ -2,7 +2,7 @@ package com.backend.proyectoweb.proyectoweb_backend.dtos;
 
 import java.util.Date;
 
-public class UsuarioDato {
+public class UserDTO {
     
     protected Long id;
 
@@ -16,18 +16,18 @@ public class UsuarioDato {
 
     protected String password;
 
-    protected RolesDato rol;
+    protected RoleDTO rol;
 
     // protected List<OrdenCompraDato> orders;
 
     // protected List<CarritoCompraDato> carts;
 
 
-    public UsuarioDato() {
+    public UserDTO() {
     }
 
 
-    public UsuarioDato(String firstName, String lastName, Date birthDate, String email, String password, RolesDato rol) {
+    public UserDTO(String firstName, String lastName, Date birthDate, String email, String password, RoleDTO rol) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
@@ -85,12 +85,12 @@ public class UsuarioDato {
     }
 
 
-    public RolesDato getRol() {
+    public RoleDTO getRol() {
         return rol;
     }
 
 
-    public void setRol(RolesDato rol) {
+    public void setRol(RoleDTO rol) {
         this.rol = rol;
     }
 

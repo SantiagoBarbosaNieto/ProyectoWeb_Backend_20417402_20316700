@@ -17,7 +17,7 @@ import javax.validation.constraints.Email;
 
 
 @Entity
-public class UsuarioSys {
+public class UserSys {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,20 +41,20 @@ public class UsuarioSys {
     protected String password;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    protected Roles rol;
+    protected Role rol;
 
     @OneToMany(mappedBy = "customer")
-    protected List<OrdenCompra> orders;
+    protected List<PurchaseOrder> orders;
 
     @OneToMany(mappedBy = "user")
-    protected List<CarritoCompra> carts;
+    protected List<ShoppingCart> carts;
 
     
-    public UsuarioSys() {
+    public UserSys() {
     }
 
-    public UsuarioSys(String firstName, String lastName, Date birthDate, @Email String email, String password,
-            List<OrdenCompra> orders, List<CarritoCompra> carts, Roles rol) {
+    public UserSys(String firstName, String lastName, Date birthDate, @Email String email, String password,
+                   List<PurchaseOrder> orders, List<ShoppingCart> carts, Role rol) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
@@ -106,19 +106,19 @@ public class UsuarioSys {
     }
 
 
-    public List<OrdenCompra> getOrders() {
+    public List<PurchaseOrder> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<OrdenCompra> orders) {
+    public void setOrders(List<PurchaseOrder> orders) {
         this.orders = orders;
     }
 
-    public List<CarritoCompra> getCarts() {
+    public List<ShoppingCart> getCarts() {
         return carts;
     }
 
-    public void setCarts(List<CarritoCompra> carts) {
+    public void setCarts(List<ShoppingCart> carts) {
         this.carts = carts;
     }
 
@@ -130,11 +130,11 @@ public class UsuarioSys {
         this.id = id;
     }
 
-    public Roles getRol() {
+    public Role getRol() {
         return rol;
     }
 
-    public void setRol(Roles rol) {
+    public void setRol(Role rol) {
         this.rol = rol;
     }
 

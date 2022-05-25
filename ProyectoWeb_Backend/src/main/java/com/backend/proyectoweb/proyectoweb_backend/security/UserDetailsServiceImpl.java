@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.backend.proyectoweb.proyectoweb_backend.model.UsuarioSys;
+import com.backend.proyectoweb.proyectoweb_backend.model.UserSys;
 import com.backend.proyectoweb.proyectoweb_backend.repository.UsusarioRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +26,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String arg0) throws UsernameNotFoundException {
         
-        Optional<UsuarioSys> opt = ususarioRepository.findByEmail(arg0);
+        Optional<UserSys> opt = ususarioRepository.findByEmail(arg0);
         User spUser = null;
 
         if(opt.isPresent()){
-            UsuarioSys user = opt.get();
+            UserSys user = opt.get();
             List<SimpleGrantedAuthority> roles = getRoles(user);
             spUser = new User(user.getEmail(), user.getPassword(), roles);
         }else{
@@ -40,7 +40,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return spUser;
     }
 
-    private List<SimpleGrantedAuthority> getRoles(UsuarioSys user) {
+    private List<SimpleGrantedAuthority> getRoles(UserSys user) {
 
         List<SimpleGrantedAuthority> roles = new ArrayList<>();
         roles.add(new SimpleGrantedAuthority("ROLE_"+user.getRol().getName()));

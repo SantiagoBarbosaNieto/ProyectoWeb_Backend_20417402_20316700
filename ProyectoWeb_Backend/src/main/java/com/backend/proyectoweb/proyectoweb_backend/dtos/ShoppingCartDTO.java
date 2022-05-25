@@ -2,18 +2,18 @@ package com.backend.proyectoweb.proyectoweb_backend.dtos;
 
 import java.util.List;
 
-public class CarritoCompraDato {
+public class ShoppingCartDTO {
     
     protected Long id;
 
-    protected UsuarioDato user;
+    protected UserDTO user;
 
-    protected List<ProductoDato> products;
+    protected List<ProductDTO> products;
 
-    public CarritoCompraDato() {
+    public ShoppingCartDTO() {
     }
 
-    public CarritoCompraDato(Long id, UsuarioDato user) {
+    public ShoppingCartDTO(Long id, UserDTO user) {
         this.id = id;
         this.user = user;
     }
@@ -26,19 +26,19 @@ public class CarritoCompraDato {
         this.id = id;
     }
 
-    public UsuarioDato getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(UsuarioDato user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 
-    public List<ProductoDato> getProducts() {
+    public List<ProductDTO> getProducts() {
         return products;
     }
 
-    public void setProducts(List<ProductoDato> products) {
+    public void setProducts(List<ProductDTO> products) {
         this.products = products;
     }
 

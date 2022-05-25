@@ -1,15 +1,15 @@
 package com.backend.proyectoweb.proyectoweb_backend.dtos;
 
-public class RolesDato {
+public class RoleDTO {
     
     protected Long id;
 
     protected String name;
 
-    public RolesDato() {
+    public RoleDTO() {
     }
 
-    public RolesDato(Long id, String name) {
+    public RoleDTO(Long id, String name) {
         this.id = id;
         this.name = name;
     }

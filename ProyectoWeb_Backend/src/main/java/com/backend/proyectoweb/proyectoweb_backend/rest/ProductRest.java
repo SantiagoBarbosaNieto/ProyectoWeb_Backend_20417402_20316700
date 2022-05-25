@@ -1,13 +1,13 @@
 package com.backend.proyectoweb.proyectoweb_backend.rest;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 import com.backend.proyectoweb.proyectoweb_backend.anotations.isAdmin;
 import com.backend.proyectoweb.proyectoweb_backend.anotations.isCustomerOrAdmin;
-import com.backend.proyectoweb.proyectoweb_backend.dtos.UsuarioDato;
-import com.backend.proyectoweb.proyectoweb_backend.model.UsuarioSys;
-import com.backend.proyectoweb.proyectoweb_backend.service.IUsuarioService;
+import com.backend.proyectoweb.proyectoweb_backend.dtos.ProductDTO;
+import com.backend.proyectoweb.proyectoweb_backend.model.Product;
+import com.backend.proyectoweb.proyectoweb_backend.service.IProductService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,67 +24,58 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("Users")
-public class UsuarioRest {
-    
+@RequestMapping("productos")
+@isAdmin
+public class ProductRest {
+
     @Autowired
-    private IUsuarioService usuarioService;
+    private IProductService productoService;
 
     @Autowired
     private ModelMapper mapper;
 
-    @isCustomerOrAdmin
-    @GetMapping("info")
-    public UsuarioDato getInfo(@RequestParam(name="email") String email){
-
-        return mapper.map(usuarioService.getUserInfo(email), UsuarioDato.class);
-    }
-    
-    
     @PostMapping(value = "create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public UsuarioDato createUser(@RequestBody UsuarioDato dto){
-        UsuarioSys user = mapper.map(dto, UsuarioSys.class);
+    public ProductDTO createProdct(@RequestBody ProductDTO dto){
+        Product product = mapper.map(dto, Product.class);
 
-        return  mapper.map(usuarioService.createUser(user), UsuarioDato.class);
+        return  mapper.map(productoService.createProduct(product), ProductDTO.class);
     }
 
-    @isAdmin
+    @isCustomerOrAdmin
     @GetMapping("{page}/{size}")
-    public Page<UsuarioDato> getUsers(@PathVariable("page") int pagina, @PathVariable("size") int size){
+    public Page<ProductDTO> getProducts(@PathVariable("page") int pagina, @PathVariable("size") int size){
 
         Pageable pageable = PageRequest.of(pagina, size, Sort.by("id"));
 
-        Page<UsuarioSys> users = usuarioService.getUsers(pageable);
+        Page<Product> productos = productoService.getProducts(pageable);
 
-        List<UsuarioDato> res = new ArrayList<>(); 
+        List<ProductDTO> res = new ArrayList<>();
 
-        for (UsuarioSys user : users.getContent()){
+        for (Product product : productos.getContent()){
 
-            res.add(mapper.map(user, UsuarioDato.class));
+            res.add(mapper.map(product, ProductDTO.class));
             
         }
         return new PageImpl<>(res, pageable, res.size());
     }
 
-    @isAdmin
     @PutMapping(value = "update/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public UsuarioDato updateUser(@RequestBody UsuarioDato dto, @PathVariable Long id){
+    public ProductDTO updateProduct(@RequestBody ProductDTO dto, @PathVariable Long id){
 
-        UsuarioSys user = mapper.map(dto, UsuarioSys.class);
+        Product product = mapper.map(dto, Product.class);
 
-        usuarioService.updateUser(user, id);
+        productoService.updateProduct(product, id);
 
         return dto;
     }
 
-    @isAdmin
     @DeleteMapping("delete/{id}")
-    public void deleteUser(@PathVariable Long id){
+    public void deleteProduct(@PathVariable Long id){
 
-        usuarioService.deleteUser(id);
+        productoService.deleteProduct(id);
     }
+
 }

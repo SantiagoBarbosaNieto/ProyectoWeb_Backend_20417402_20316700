@@ -2,8 +2,8 @@ package com.backend.proyectoweb.proyectoweb_backend.service;
 
 import java.util.Optional;
 
-import com.backend.proyectoweb.proyectoweb_backend.model.Producto;
-import com.backend.proyectoweb.proyectoweb_backend.repository.ProductoRepository;
+import com.backend.proyectoweb.proyectoweb_backend.model.Product;
+import com.backend.proyectoweb.proyectoweb_backend.repository.ProductRepository;
 import com.backend.proyectoweb.proyectoweb_backend.util.ProductNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +12,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProductoService implements IProductoService {
+public class ProductService implements IProductService {
 
     @Autowired
-    private ProductoRepository repository;
+    private ProductRepository repository;
 
     @Override
     public void deleteProduct(Long id) {
     
-        Optional<Producto> producto = repository.findById(id);
+        Optional<Product> producto = repository.findById(id);
         
         if(producto.isPresent()){
             repository.delete(producto.get());
@@ -31,14 +31,14 @@ public class ProductoService implements IProductoService {
     }
 
     @Override
-    public Producto updateProduct(Producto producto, Long id) {
+    public Product updateProduct(Product product, Long id) {
     
         return repository.findById(id).map(provider ->{
 
-            provider.setName(producto.getName());
-            provider.setDescription(producto.getDescription());
-            provider.setImage(producto.getImage());
-            provider.setPrice(producto.getPrice());
+            provider.setName(product.getName());
+            provider.setDescription(product.getDescription());
+            provider.setImage(product.getImage());
+            provider.setPrice(product.getPrice());
 
             return repository.save(provider);
 
@@ -49,21 +49,21 @@ public class ProductoService implements IProductoService {
     }
 
     @Override
-    public Producto getProductById(Long id) {
+    public Product getProductById(Long id) {
 
         return repository.findById(id).orElseThrow(()-> new ProductNotFoundException(id));
     
     }
 
     @Override
-    public Producto createProduct(Producto producto) {
+    public Product createProduct(Product product) {
         
-        return repository.save(producto);
+        return repository.save(product);
 
     }
 
     @Override
-    public Page<Producto> getProducts(Pageable pageable) {
+    public Page<Product> getProducts(Pageable pageable) {
 
         return repository.findAll(pageable);
     

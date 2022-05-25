@@ -2,22 +2,22 @@ package com.backend.proyectoweb.proyectoweb_backend.dtos;
 
 import java.util.Date;
 
-public class OrdenCompraDato {
+public class PurchaseOrderDTO {
 
     protected Long id;
 
-    protected UsuarioDato customer;
+    protected UserDTO customer;
 
     protected Double finalPrice;
 
-    protected CarritoCompraDato cart;
+    protected ShoppingCartDTO cart;
 
     protected Date purchaseDate;
 
-    public OrdenCompraDato() {
+    public PurchaseOrderDTO() {
     }
 
-    public OrdenCompraDato(UsuarioDato customer, Double finalPrice, CarritoCompraDato cart, Date purchaseDate) {
+    public PurchaseOrderDTO(UserDTO customer, Double finalPrice, ShoppingCartDTO cart, Date purchaseDate) {
         this.customer = customer;
         this.finalPrice = finalPrice;
         this.cart = cart;
@@ -48,19 +48,19 @@ public class OrdenCompraDato {
         this.purchaseDate = purchaseDate;
     }
 
-    public UsuarioDato getCustomer() {
+    public UserDTO getCustomer() {
         return customer;
     }
 
-    public void setCustomer(UsuarioDato customer) {
+    public void setCustomer(UserDTO customer) {
         this.customer = customer;
     }
 
-    public CarritoCompraDato getCart() {
+    public ShoppingCartDTO getCart() {
         return cart;
     }
 
-    public void setCart(CarritoCompraDato cart) {
+    public void setCart(ShoppingCartDTO cart) {
         this.cart = cart;
     }
 

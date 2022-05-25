@@ -6,9 +6,9 @@ import java.util.List;
 import com.backend.proyectoweb.proyectoweb_backend.anotations.isAdmin;
 import com.backend.proyectoweb.proyectoweb_backend.anotations.isCustomer;
 import com.backend.proyectoweb.proyectoweb_backend.anotations.isCustomerOrAdmin;
-import com.backend.proyectoweb.proyectoweb_backend.dtos.CarritoCompraDato;
-import com.backend.proyectoweb.proyectoweb_backend.model.CarritoCompra;
-import com.backend.proyectoweb.proyectoweb_backend.service.ICarritoCompraService;
+import com.backend.proyectoweb.proyectoweb_backend.dtos.ShoppingCartDTO;
+import com.backend.proyectoweb.proyectoweb_backend.model.ShoppingCart;
+import com.backend.proyectoweb.proyectoweb_backend.service.IShoppingCartService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +29,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("ShoppingCarts")
-public class CarritoCompraRest {
+public class ShoppingCartRest {
 
     @Autowired
-    private ICarritoCompraService carritoCompraService;
+    private IShoppingCartService carritoCompraService;
 
     @Autowired
     private ModelMapper mapper;
@@ -40,17 +40,17 @@ public class CarritoCompraRest {
 
     @isAdmin
     @GetMapping("{page}/{size}")
-    public Page<CarritoCompraDato> getShoppingCarts(@PathVariable("page") int pagina, @PathVariable("size") int size){
+    public Page<ShoppingCartDTO> getShoppingCarts(@PathVariable("page") int pagina, @PathVariable("size") int size){
 
         Pageable pageable = PageRequest.of(pagina, size, Sort.by("id"));
 
-        Page<CarritoCompra> carts = carritoCompraService.getCarts(pageable);
+        Page<ShoppingCart> carts = carritoCompraService.getCarts(pageable);
 
-        List<CarritoCompraDato> res = new ArrayList<>();
+        List<ShoppingCartDTO> res = new ArrayList<>();
 
-        for (CarritoCompra cart : carts.getContent()) {
+        for (ShoppingCart cart : carts.getContent()) {
 
-            res.add(mapper.map(cart, CarritoCompraDato.class));
+            res.add(mapper.map(cart, ShoppingCartDTO.class));
 
         }
         return new PageImpl<>(res, pageable,res.size());
@@ -58,19 +58,19 @@ public class CarritoCompraRest {
 
     @isCustomer
     @PostMapping(value = "create/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public CarritoCompraDato createShoppingCart(@RequestBody CarritoCompraDato dto, @PathVariable("id") Long id){
+    public ShoppingCartDTO createShoppingCart(@RequestBody ShoppingCartDTO dto, @PathVariable("id") Long id){
 
-        CarritoCompra cart = mapper.map(dto, CarritoCompra.class);
+        ShoppingCart cart = mapper.map(dto, ShoppingCart.class);
 
-        return mapper.map(carritoCompraService.createShoppingCart(cart, id), CarritoCompraDato.class);
+        return mapper.map(carritoCompraService.createShoppingCart(cart, id), ShoppingCartDTO.class);
 
     }
 
     @isCustomerOrAdmin
     @PutMapping(value = "actulizar/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public CarritoCompraDato uCartDTO(@RequestBody CarritoCompraDato dto, @PathVariable Long id){
+    public ShoppingCartDTO uCartDTO(@RequestBody ShoppingCartDTO dto, @PathVariable Long id){
 
-        CarritoCompra cart = mapper.map(dto, CarritoCompra.class);
+        ShoppingCart cart = mapper.map(dto, ShoppingCart.class);
 
         carritoCompraService.updateShoppingCart(cart, id);
 
@@ -85,18 +85,18 @@ public class CarritoCompraRest {
 
     @isCustomerOrAdmin
     @GetMapping("carts/per/user/{id}/{page}/{size}")
-    public Page<CarritoCompraDato> getCartsPerUser(@PathVariable("id") Long id, @PathVariable ("page") int page,
-     @PathVariable("size") int size){
+    public Page<ShoppingCartDTO> getCartsPerUser(@PathVariable("id") Long id, @PathVariable ("page") int page,
+                                                 @PathVariable("size") int size){
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("id"));
 
-        Page<CarritoCompra> carts = carritoCompraService.getCartsPerUser(id, pageable);
+        Page<ShoppingCart> carts = carritoCompraService.getCartsPerUser(id, pageable);
 
-        List<CarritoCompraDato> res = new ArrayList<>();
+        List<ShoppingCartDTO> res = new ArrayList<>();
 
-        for (CarritoCompra cart : carts.getContent()) {
+        for (ShoppingCart cart : carts.getContent()) {
 
-            res.add(mapper.map(cart, CarritoCompraDato.class));
+            res.add(mapper.map(cart, ShoppingCartDTO.class));
 
         }
 
