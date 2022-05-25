@@ -20,10 +20,10 @@ public class ProductService implements IProductService {
     @Override
     public void deleteProduct(Long id) {
     
-        Optional<Product> producto = repository.findById(id);
+        Optional<Product> product = repository.findById(id);
         
-        if(producto.isPresent()){
-            repository.delete(producto.get());
+        if(product.isPresent()){
+            repository.delete(product.get());
         } else{
             throw new ProductNotFoundException(id);
         }  
