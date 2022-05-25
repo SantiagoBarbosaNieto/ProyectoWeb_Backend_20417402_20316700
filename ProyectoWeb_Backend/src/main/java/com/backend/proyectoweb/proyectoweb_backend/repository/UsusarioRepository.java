@@ -18,7 +18,7 @@ public interface UsusarioRepository extends JpaRepository<UserSys, Long>{
 
     List<UserSys> findByFirstName(String firstName);
 
-    @Query(value = "SELECT u FROM UsuarioSys u WHERE u.email=?1 AND u.password=?2")
+    @Query(value = "SELECT u FROM UserSys u WHERE u.email=?1 AND u.password=?2")
     Optional<UserSys> loginMethod(String email, String password);
 
 }

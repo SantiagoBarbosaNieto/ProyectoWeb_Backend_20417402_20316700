@@ -87,4 +87,5 @@ public class UserRest {
 
         usuarioService.deleteUser(id);
     }
+
 }

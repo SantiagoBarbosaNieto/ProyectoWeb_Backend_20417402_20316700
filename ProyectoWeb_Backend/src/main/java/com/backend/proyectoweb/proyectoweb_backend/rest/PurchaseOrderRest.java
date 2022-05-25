@@ -55,7 +55,7 @@ public class PurchaseOrderRest {
         return new PageImpl<>(res, pageable, res.size());
     }
 
-    @isCustomer
+
     @PostMapping(value = "create/{id}",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
     public PurchaseOrderDTO createPurchaseOrder(@RequestBody PurchaseOrderDTO dto, @PathVariable("id")Long id){
 

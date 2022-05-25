@@ -16,7 +16,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findByName(String name);
 
-    @Query(value = "SELECT p FROM Producto p WHERE p.price = ?1")
+    @Query(value = "SELECT p FROM Product p WHERE p.price = ?1")
     List<Product> consulta1(Double price);
     
     

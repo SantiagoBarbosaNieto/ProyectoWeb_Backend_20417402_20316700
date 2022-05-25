@@ -18,6 +18,9 @@ public class Product {
     protected String name;
 
     @Column
+    protected String desarrollador;
+
+    @Column
     protected String description;
 
     @Column
@@ -29,9 +32,10 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, String description, Double price, String image) {
+    public Product(String name, String description, String desarrollador, Double price, String image) {
         this.name = name;
         this.description = description;
+        this.desarrollador = desarrollador;
         this.price = price;
         this.image = image;
     }
@@ -75,6 +79,10 @@ public class Product {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public String getDesarrollador() {return desarrollador; }
+
+    public void setDesarrollador(String desarrollador) { this.desarrollador = desarrollador;}
 
     
 }

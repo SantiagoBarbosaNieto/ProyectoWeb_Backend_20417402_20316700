@@ -27,12 +27,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("productos")
+@RequestMapping("product")
 @isAdmin
 public class ProductRest {
 
     @Autowired
-    private IProductService productoService;
+    private IProductService productService;
 
     @Autowired
     private ModelMapper mapper;
@@ -41,7 +41,7 @@ public class ProductRest {
     public ProductDTO createProdct(@RequestBody ProductDTO dto){
         Product product = mapper.map(dto, Product.class);
 
-        return  mapper.map(productoService.createProduct(product), ProductDTO.class);
+        return  mapper.map(productService.createProduct(product), ProductDTO.class);
     }
 
     @isCustomerOrAdmin
@@ -50,11 +50,11 @@ public class ProductRest {
 
         Pageable pageable = PageRequest.of(pagina, size, Sort.by("id"));
 
-        Page<Product> productos = productoService.getProducts(pageable);
+        Page<Product> products = productService.getProducts(pageable);
 
         List<ProductDTO> res = new ArrayList<>();
 
-        for (Product product : productos.getContent()){
+        for (Product product : products.getContent()){
 
             res.add(mapper.map(product, ProductDTO.class));
             
@@ -67,7 +67,7 @@ public class ProductRest {
 
         Product product = mapper.map(dto, Product.class);
 
-        productoService.updateProduct(product, id);
+        productService.updateProduct(product, id);
 
         return dto;
     }
@@ -75,7 +75,7 @@ public class ProductRest {
     @DeleteMapping("delete/{id}")
     public void deleteProduct(@PathVariable Long id){
 
-        productoService.deleteProduct(id);
+        productService.deleteProduct(id);
     }
 
 }
