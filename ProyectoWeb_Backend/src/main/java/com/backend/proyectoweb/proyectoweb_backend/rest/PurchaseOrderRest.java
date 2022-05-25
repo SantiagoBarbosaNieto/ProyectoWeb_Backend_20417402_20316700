@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.backend.proyectoweb.proyectoweb_backend.anotations.isAdmin;
-import com.backend.proyectoweb.proyectoweb_backend.anotations.isCustomer;
 import com.backend.proyectoweb.proyectoweb_backend.anotations.isCustomerOrAdmin;
 import com.backend.proyectoweb.proyectoweb_backend.dtos.PurchaseOrderDTO;
 import com.backend.proyectoweb.proyectoweb_backend.model.PurchaseOrder;
@@ -32,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PurchaseOrderRest {
     
     @Autowired
-    private IPurchaseOrderService ordenCompraService;
+    private IPurchaseOrderService purchaseOrderService;
 
     @Autowired
     private ModelMapper mapper;
@@ -43,7 +42,7 @@ public class PurchaseOrderRest {
 
         Pageable pageable = PageRequest.of(pagina, size, Sort.by("id"));
 
-        Page<PurchaseOrder> orders = ordenCompraService.getOrders(pageable);
+        Page<PurchaseOrder> orders = purchaseOrderService.getOrders(pageable);
 
         List<PurchaseOrderDTO> res = new ArrayList<>();
 
@@ -61,7 +60,7 @@ public class PurchaseOrderRest {
 
         PurchaseOrder order = mapper.map(dto, PurchaseOrder.class);
 
-        return mapper.map(ordenCompraService.createOrder(order, id), PurchaseOrderDTO.class);
+        return mapper.map(purchaseOrderService.createOrder(order, id), PurchaseOrderDTO.class);
 
     }
 
@@ -71,7 +70,7 @@ public class PurchaseOrderRest {
 
         PurchaseOrder order = mapper.map(dto, PurchaseOrder.class);
 
-        ordenCompraService.updateOrder(order, id);
+        purchaseOrderService.updateOrder(order, id);
 
         return dto;
     }
@@ -79,7 +78,7 @@ public class PurchaseOrderRest {
     @isAdmin
     @DeleteMapping("delete/{id}")
     public void deleteOrder(@PathVariable Long id){
-        ordenCompraService.deletePurchaseOrder(id);
+        purchaseOrderService.deletePurchaseOrder(id);
     }
 
     @isCustomerOrAdmin
@@ -89,7 +88,7 @@ public class PurchaseOrderRest {
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("id"));
 
-        Page<PurchaseOrder> orders = ordenCompraService.getOrdersPerUser(id, pageable);
+        Page<PurchaseOrder> orders = purchaseOrderService.getOrdersPerUser(id, pageable);
 
         List<PurchaseOrderDTO> res = new ArrayList<>();
 

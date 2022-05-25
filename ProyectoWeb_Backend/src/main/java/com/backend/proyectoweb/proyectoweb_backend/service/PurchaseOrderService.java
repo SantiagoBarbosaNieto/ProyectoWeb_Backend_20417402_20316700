@@ -4,9 +4,8 @@ import java.util.Optional;
 
 import com.backend.proyectoweb.proyectoweb_backend.model.Product;
 import com.backend.proyectoweb.proyectoweb_backend.model.PurchaseOrder;
-import com.backend.proyectoweb.proyectoweb_backend.model.ShoppingCart;
 import com.backend.proyectoweb.proyectoweb_backend.model.UserSys;
-import com.backend.proyectoweb.proyectoweb_backend.repository.OrdenCompraRepository;
+import com.backend.proyectoweb.proyectoweb_backend.repository.PurchaseOrderRepository;
 import com.backend.proyectoweb.proyectoweb_backend.repository.UsusarioRepository;
 import com.backend.proyectoweb.proyectoweb_backend.util.PurchaseOrderNotFoundException;
 
@@ -19,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class PurchaseOrderService implements IPurchaseOrderService {
 
     @Autowired
-    private OrdenCompraRepository repository;
+    private PurchaseOrderRepository repository;
 
     @Autowired
     private UsusarioRepository uRepository;
@@ -63,8 +62,8 @@ public class PurchaseOrderService implements IPurchaseOrderService {
         PurchaseOrder order2 = new PurchaseOrder();
         order2.setPurchaseDate(order.getPurchaseDate());
         order2.setCustomer(uRepository.getById(id));
-        order2.setCart(order.getCart());
-        order2.setFinalPrice(calcFinalPrice(order.getCart()));
+        order2.setProduct(order.getProduct());
+        order2.setFinalPrice(order.getProduct().getPrice());
         return repository.save(order);
 
     }
@@ -75,19 +74,7 @@ public class PurchaseOrderService implements IPurchaseOrderService {
         return repository.findAll(pageable);
     
     }
-    
 
-    public Double calcFinalPrice(ShoppingCart carritoCompra){
-        
-        Double finalprice = 0d;
-
-        for(Product p: carritoCompra.getProducts()){
-            finalprice+=p.getPrice();
-        }
-
-        return finalprice;
-
-    }
 
     @Override
     public Page<PurchaseOrder> getOrdersPerUser(Long id, Pageable pageable) {

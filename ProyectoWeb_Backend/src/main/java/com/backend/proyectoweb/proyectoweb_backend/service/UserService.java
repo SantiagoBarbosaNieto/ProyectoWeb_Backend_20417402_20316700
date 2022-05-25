@@ -52,7 +52,6 @@ public class UserService implements IUserService {
         
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRol(rolesRepository.getById(2l));
-        user.setCarts(new ArrayList<>());
         user.setOrders(new ArrayList<>());
         return repository.save(user);
 

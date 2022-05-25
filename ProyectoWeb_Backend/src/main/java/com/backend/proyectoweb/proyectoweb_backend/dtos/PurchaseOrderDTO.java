@@ -10,17 +10,17 @@ public class PurchaseOrderDTO {
 
     protected Double finalPrice;
 
-    protected ShoppingCartDTO cart;
+    protected ProductDTO product;
 
     protected Date purchaseDate;
 
     public PurchaseOrderDTO() {
     }
 
-    public PurchaseOrderDTO(UserDTO customer, Double finalPrice, ShoppingCartDTO cart, Date purchaseDate) {
+    public PurchaseOrderDTO(UserDTO customer, Double finalPrice, ProductDTO product, Date purchaseDate) {
         this.customer = customer;
         this.finalPrice = finalPrice;
-        this.cart = cart;
+        this.product = product;
         this.purchaseDate = purchaseDate;
     }
 
@@ -56,12 +56,12 @@ public class PurchaseOrderDTO {
         this.customer = customer;
     }
 
-    public ShoppingCartDTO getCart() {
-        return cart;
+    public ProductDTO getProduct() {
+        return product;
     }
 
-    public void setCart(ShoppingCartDTO cart) {
-        this.cart = cart;
+    public void setProduct(ProductDTO product) {
+        this.product = product;
     }
 
     

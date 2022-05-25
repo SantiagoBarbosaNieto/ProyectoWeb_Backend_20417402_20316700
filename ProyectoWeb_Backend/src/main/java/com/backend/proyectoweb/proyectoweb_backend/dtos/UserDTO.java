@@ -1,6 +1,7 @@
 package com.backend.proyectoweb.proyectoweb_backend.dtos;
 
 import java.util.Date;
+import java.util.List;
 
 public class UserDTO {
     
@@ -18,9 +19,8 @@ public class UserDTO {
 
     protected RoleDTO rol;
 
-    // protected List<OrdenCompraDato> orders;
+    //protected List<PurchaseOrderDTO> orders;
 
-    // protected List<CarritoCompraDato> carts;
 
 
     public UserDTO() {
@@ -95,24 +95,15 @@ public class UserDTO {
     }
 
 
-    // public List<OrdenCompraDato> getOrders() {
+    // public List<PurchaseOrderDTO> getOrders() {
     //     return orders;
     // }
 
 
-    // public void setOrders(List<OrdenCompraDato> orders) {
+    // public void setOrders(List<PurchaseOrderDTO> orders) {
     //     this.orders = orders;
     // }
 
-
-    // public List<CarritoCompraDato> getCarts() {
-    //     return carts;
-    // }
-
-
-    // public void setCarts(List<CarritoCompraDato> carts) {
-    //     this.carts = carts;
-    // }
 
 
 }
